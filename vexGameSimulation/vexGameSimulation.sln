@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vexGameSimulation", "vexGameSimulation\vexGameSimulation.csproj", "{A9329365-BFFB-4848-9804-65FEC6B5383D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9329365-BFFB-4848-9804-65FEC6B5383D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9329365-BFFB-4848-9804-65FEC6B5383D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9329365-BFFB-4848-9804-65FEC6B5383D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9329365-BFFB-4848-9804-65FEC6B5383D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48D5AB13-CF53-4D5E-9D5E-F940B17BC206}
+	EndGlobalSection
+EndGlobal

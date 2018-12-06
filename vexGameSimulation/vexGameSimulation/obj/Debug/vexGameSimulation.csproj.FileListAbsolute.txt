@@ -1,0 +1,12 @@
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.exe.config
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.exe
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.pdb
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csprojAssemblyReference.cache
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.HomeScreen.resources
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.Properties.Resources.resources
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.robotScreen.resources
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.GenerateResource.cache
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.CoreCompileInputs.cache
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.exe
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.pdb
+C:\Users\decla\source\repos\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.gameScreen.resources
