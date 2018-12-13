@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="vexgamesimDataSet" targetNamespace="http://tempuri.org/vexgamesimDataSet.xsd" xmlns:mstns="http://tempuri.org/vexgamesimDataSet.xsd" xmlns="http://tempuri.org/vexgamesimDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="vexgamesimConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="vexgamesimConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.vexGameSimulation.Properties.Settings.GlobalReference.Default.vexgamesimConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="actiontableTableAdapter" GeneratorDataComponentClassName="actiontableTableAdapter" Name="actiontable" UserDataComponentName="actiontableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="vexgamesimConnectionString (Settings)" DbObjectName="vexgamesim.actiontable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `actionID`, `actionName`, `gameID` FROM `actiontable`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="gametableTableAdapter" GeneratorDataComponentClassName="gametableTableAdapter" Name="gametable" UserDataComponentName="gametableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="vexgamesimConnectionString (Settings)" DbObjectName="vexgamesim.gametable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `gameID`, `gameName`, `gameFileReference` FROM `gametable`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="robotactiontableTableAdapter" GeneratorDataComponentClassName="robotactiontableTableAdapter" Name="robotactiontable" UserDataComponentName="robotactiontableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="vexgamesimConnectionString (Settings)" DbObjectName="vexgamesim.robotactiontable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `robotActionID`, `robotID`, `actionID`, `canRobotPerformAction`, `probOfSuccess`, `timeToComplete` FROM `robotactiontable`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="robottableTableAdapter" GeneratorDataComponentClassName="robottableTableAdapter" Name="robottable" UserDataComponentName="robottableTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="vexgamesimConnectionString (Settings)" DbObjectName="vexgamesim.robottable" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `robotID`, `robotName`, `robotSpeed`, `gameID` FROM `robottable`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vexgamesimDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="vexgamesimDataSet" msprop:Generator_UserDSName="vexgamesimDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="actiontable" msprop:Generator_TableClassName="actiontableDataTable" msprop:Generator_TableVarName="tableactiontable" msprop:Generator_TablePropName="actiontable" msprop:Generator_RowDeletingName="actiontableRowDeleting" msprop:Generator_RowChangingName="actiontableRowChanging" msprop:Generator_RowEvHandlerName="actiontableRowChangeEventHandler" msprop:Generator_RowDeletedName="actiontableRowDeleted" msprop:Generator_UserTableName="actiontable" msprop:Generator_RowChangedName="actiontableRowChanged" msprop:Generator_RowEvArgName="actiontableRowChangeEvent" msprop:Generator_RowClassName="actiontableRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="gametable" msprop:Generator_TableClassName="gametableDataTable" msprop:Generator_TableVarName="tablegametable" msprop:Generator_TablePropName="gametable" msprop:Generator_RowDeletingName="gametableRowDeleting" msprop:Generator_RowChangingName="gametableRowChanging" msprop:Generator_RowEvHandlerName="gametableRowChangeEventHandler" msprop:Generator_RowDeletedName="gametableRowDeleted" msprop:Generator_UserTableName="gametable" msprop:Generator_RowChangedName="gametableRowChanged" msprop:Generator_RowEvArgName="gametableRowChangeEvent" msprop:Generator_RowClassName="gametableRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="robotactiontable" msprop:Generator_TableClassName="robotactiontableDataTable" msprop:Generator_TableVarName="tablerobotactiontable" msprop:Generator_TablePropName="robotactiontable" msprop:Generator_RowDeletingName="robotactiontableRowDeleting" msprop:Generator_RowChangingName="robotactiontableRowChanging" msprop:Generator_RowEvHandlerName="robotactiontableRowChangeEventHandler" msprop:Generator_RowDeletedName="robotactiontableRowDeleted" msprop:Generator_UserTableName="robotactiontable" msprop:Generator_RowChangedName="robotactiontableRowChanged" msprop:Generator_RowEvArgName="robotactiontableRowChangeEvent" msprop:Generator_RowClassName="robotactiontableRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="robottable" msprop:Generator_TableClassName="robottableDataTable" msprop:Generator_TableVarName="tablerobottable" msprop:Generator_TablePropName="robottable" msprop:Generator_RowDeletingName="robottableRowDeleting" msprop:Generator_RowChangingName="robottableRowChanging" msprop:Generator_RowEvHandlerName="robottableRowChangeEventHandler" msprop:Generator_RowDeletedName="robottableRowDeleted" msprop:Generator_UserTableName="robottable" msprop:Generator_RowChangedName="robottableRowChanged" msprop:Generator_RowEvArgName="robottableRowChangeEvent" msprop:Generator_RowClassName="robottableRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

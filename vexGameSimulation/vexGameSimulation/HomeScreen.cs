@@ -24,6 +24,7 @@ namespace vexGameSimulation
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Switches to the Robot Screen
             robotScreen temp = new robotScreen();
             temp.Show();
             this.Hide();
@@ -31,6 +32,7 @@ namespace vexGameSimulation
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //Switches to the Game Screen
             gameScreen temp = new gameScreen();
             temp.Show();
             this.Hide();
