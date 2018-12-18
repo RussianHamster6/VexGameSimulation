@@ -41,12 +41,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.robotSpeedTxt = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.vexgamesimDataSet = new vexGameSimulation.vexgamesimDataSet();
+            this.ActionNameTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CanAcBePerformed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.probOfSuccess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeTaken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.robottableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.vexgamesimDataSet = new vexGameSimulation.vexgamesimDataSet();
             this.robottableTableAdapter = new vexGameSimulation.vexgamesimDataSetTableAdapters.robottableTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vexgamesimDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.robottableBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vexgamesimDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -143,27 +147,54 @@
             this.robotSpeedTxt.Name = "robotSpeedTxt";
             this.robotSpeedTxt.Size = new System.Drawing.Size(38, 20);
             this.robotSpeedTxt.TabIndex = 26;
+            this.robotSpeedTxt.TextChanged += new System.EventHandler(this.robotSpeedTxt_TextChanged);
             // 
             // dataGridView1
             // 
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ActionNameTxt,
+            this.CanAcBePerformed,
+            this.probOfSuccess,
+            this.timeTaken});
             this.dataGridView1.DataSource = this.robottableBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(58, 117);
+            this.dataGridView1.Location = new System.Drawing.Point(95, 124);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(444, 150);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // vexgamesimDataSet
+            // ActionNameTxt
             // 
-            this.vexgamesimDataSet.DataSetName = "vexgamesimDataSet";
-            this.vexgamesimDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.ActionNameTxt.HeaderText = "Action Name";
+            this.ActionNameTxt.Name = "ActionNameTxt";
+            this.ActionNameTxt.ReadOnly = true;
+            // 
+            // CanAcBePerformed
+            // 
+            this.CanAcBePerformed.HeaderText = "Can Action Be Performed";
+            this.CanAcBePerformed.Name = "CanAcBePerformed";
+            // 
+            // probOfSuccess
+            // 
+            this.probOfSuccess.HeaderText = "Probability of Success";
+            this.probOfSuccess.Name = "probOfSuccess";
+            // 
+            // timeTaken
+            // 
+            this.timeTaken.HeaderText = "Time Taken for action to complete (s)";
+            this.timeTaken.Name = "timeTaken";
             // 
             // robottableBindingSource
             // 
             this.robottableBindingSource.DataMember = "robottable";
             this.robottableBindingSource.DataSource = this.vexgamesimDataSet;
+            // 
+            // vexgamesimDataSet
+            // 
+            this.vexgamesimDataSet.DataSetName = "vexgamesimDataSet";
+            this.vexgamesimDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // robottableTableAdapter
             // 
@@ -190,8 +221,8 @@
             this.Text = "robotScreen";
             this.Load += new System.EventHandler(this.robotScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vexgamesimDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.robottableBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vexgamesimDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,5 +245,9 @@
         private vexgamesimDataSet vexgamesimDataSet;
         private System.Windows.Forms.BindingSource robottableBindingSource;
         private vexgamesimDataSetTableAdapters.robottableTableAdapter robottableTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActionNameTxt;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CanAcBePerformed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn probOfSuccess;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeTaken;
     }
 }
