@@ -16,6 +16,7 @@ namespace vexGameSimulation
     {
         string conString = "datasource=localhost;port=3306;uid=root;pwd=root;database=vexgamesim";
         string Query;
+        int i;
 
         public robotScreen()
         {
@@ -25,9 +26,18 @@ namespace vexGameSimulation
         private void robotScreen_Load(object sender, EventArgs e)
         {
             this.robottableTableAdapter.Fill(this.vexgamesimDataSet.robottable);
-            //TODO: Load data into the comboboxes from the database with game names and robot names.
-            Query = "";
-
+            Query = "SELECT gameName, gameID from gametable";
+            MySqlConnection connection = new MySqlConnection(conString);
+            MySqlCommand command = new MySqlCommand(Query, connection);
+            MySqlDataReader reader;
+            connection.Open();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                gameList.Items.Add(reader["gameName"].ToString());
+                gameList.ValueMember = reader["gameID"].ToString();
+                gameList.DisplayMember = reader["gameName"].ToString();
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -52,16 +62,15 @@ namespace vexGameSimulation
             try
             {
                 float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //convert the robotSpeedTxt input into a number
-                Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed) VALUES('" + this.robotNameTxt.Text + "','" + robotSpeed + "');";
+                Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed,gameID) VALUES(?, ?, ?);";
                 MySqlConnection connection = new MySqlConnection(conString);
                 MySqlCommand command = new MySqlCommand(Query, connection);
+                command.Parameters.AddWithValue("@robotName", robotNameTxt.Text);
+                command.Parameters.AddWithValue("@robotSpeed", robotSpeed);
+                command.Parameters.AddWithValue("@gameID", RobotList.SelectedIndex + 1);
                 MySqlDataReader reader;
                 connection.Open();
                 reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-
-                }
                 connection.Close();
                 MessageBox.Show("Data has been Saved!");
             }
