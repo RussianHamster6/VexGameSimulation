@@ -18,6 +18,8 @@ namespace vexGameSimulation
         string Query;
         int i;
 
+
+
         public robotScreen()
         {
             InitializeComponent();
@@ -25,19 +27,25 @@ namespace vexGameSimulation
 
         private void robotScreen_Load(object sender, EventArgs e)
         {
+            //section below loads list of games to the gameList
+            DataTable dt = new DataTable();
+
             this.robottableTableAdapter.Fill(this.vexgamesimDataSet.robottable);
             Query = "SELECT gameName, gameID from gametable";
             MySqlConnection connection = new MySqlConnection(conString);
             MySqlCommand command = new MySqlCommand(Query, connection);
-            MySqlDataReader reader;
+            MySqlDataAdapter da = new MySqlDataAdapter(Query, conString);
+            da.Fill(dt);
             connection.Open();
-            reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                gameList.Items.Add(reader["gameName"].ToString());
-                gameList.ValueMember = reader["gameID"].ToString();
-                gameList.DisplayMember = reader["gameName"].ToString();
-            }
+            gameList.DataSource = dt;
+            gameList.DisplayMember = "gameName";
+            gameList.ValueMember = "gameID";
+            gameList.Enabled = true;
+            command.ExecuteNonQuery();
+            connection.Close();
+
+            //selection below loads list of robots to the robotList
+
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -62,17 +70,18 @@ namespace vexGameSimulation
             try
             {
                 float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //convert the robotSpeedTxt input into a number
-                Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed,gameID) VALUES(?, ?, ?);";
+                Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed,gameID) VALUES(@robotName, @robotSpeed, @gameID);";
                 MySqlConnection connection = new MySqlConnection(conString);
                 MySqlCommand command = new MySqlCommand(Query, connection);
                 command.Parameters.AddWithValue("@robotName", robotNameTxt.Text);
                 command.Parameters.AddWithValue("@robotSpeed", robotSpeed);
-                command.Parameters.AddWithValue("@gameID", RobotList.SelectedIndex + 1);
+                command.Parameters.AddWithValue("@gameID", gameList.SelectedValue);
                 MySqlDataReader reader;
                 connection.Open();
                 reader = command.ExecuteReader();
                 connection.Close();
                 MessageBox.Show("Data has been Saved!");
+
             }
 
             catch
@@ -98,6 +107,11 @@ namespace vexGameSimulation
                 MessageBox.Show("Robot Speed needs to be a number");
                 robotSpeedTxt.Text = "";
             }
+        }
+
+        private void saveChangesBtn_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
