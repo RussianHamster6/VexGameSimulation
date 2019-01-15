@@ -26,3 +26,17 @@ C:\Users\decla\Documents\GitHub\VeexGameSimulation\vexGameSimulation\vexGameSimu
 C:\Users\decla\Documents\GitHub\VeexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\MySql.Data.dll
 C:\Users\decla\Documents\GitHub\VeexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\MySql.Data.xml
 C:\Users\decla\Documents\GitHub\VeexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.CopyComplete
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.exe.config
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.exe
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\vexGameSimulation.pdb
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\bin\Debug\MySql.Data.xml
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csprojAssemblyReference.cache
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.gameScreen.resources
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.HomeScreen.resources
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.Properties.Resources.resources
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.robotScreen.resources
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.GenerateResource.cache
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.CoreCompileInputs.cache
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.csproj.CopyComplete
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.exe
+C:\Users\Russian Hamster\Documents\GitHub\VexGameSimulation\vexGameSimulation\vexGameSimulation\obj\Debug\vexGameSimulation.pdb
