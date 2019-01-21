@@ -46,21 +46,21 @@ namespace vexGameSimulation
 
             //selection below loads list of robots to the robotList
 
-            dt = new DataTable();
+            DataTable dt2 = new DataTable();
 
             this.robottableTableAdapter.Fill(this.vexgamesimDataSet.robottable);
             Query = "SELECT robotName, robotID from robottable";
             MySqlConnection connection2 = new MySqlConnection(conString);
             MySqlCommand command2 = new MySqlCommand(Query, connection2);
             MySqlDataAdapter da2 = new MySqlDataAdapter(Query, conString);
-            da2.Fill(dt);
-            connection.Open();
-            RobotList.DataSource = dt;
+            da2.Fill(dt2);
+            connection2.Open();
+            RobotList.DataSource = dt2;
             RobotList.DisplayMember = "robotName";
             RobotList.ValueMember = "robotID";
             gameList.Enabled = true;
             command2.ExecuteNonQuery();
-            connection.Close();
+            connection2.Close();
         }
 
         private void label3_Click(object sender, EventArgs e)
