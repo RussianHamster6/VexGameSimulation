@@ -17,9 +17,7 @@ namespace vexGameSimulation
         string conString = "datasource=localhost;port=3306;uid=root;pwd=root;database=vexgamesim";
         string Query;
         int i;
-
-
-
+       
         public robotScreen()
         {
             InitializeComponent();
@@ -58,7 +56,7 @@ namespace vexGameSimulation
             RobotList.DataSource = dt2;
             RobotList.DisplayMember = "robotName";
             RobotList.ValueMember = "robotID";
-            gameList.Enabled = true;
+            RobotList.Enabled = true;
             command2.ExecuteNonQuery();
             connection2.Close();
         }
@@ -126,7 +124,40 @@ namespace vexGameSimulation
 
         private void saveChangesBtn_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat);
+                Query = "UPDATE vexgamesim.robottable SET robotName=@robotName,robotSpeed=@robotSpeed,gameID=@gameID WHERE robotID =" + RobotList.SelectedValue.ToString();
+                MySqlConnection connection = new MySqlConnection(conString);
+                MySqlCommand command = new MySqlCommand(Query, connection);
+                command.Parameters.AddWithValue("@robotName", robotNameTxt.Text);
+                command.Parameters.AddWithValue("@robotSpeed", robotSpeed);
+                command.Parameters.AddWithValue("@gameID", gameList.SelectedValue);
+                MySqlDataReader reader;
+                connection.Open();
+                reader = command.ExecuteReader();
+                connection.Close();
+                MessageBox.Show("Data has been Changed!");
+            }
+            catch
+            {
+                MessageBox.Show("Failed to Change");
+            }
+        }
+
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+            Query = "SELECT * FROM robottable WHERE robotID = " + RobotList.SelectedValue;
+            MySqlConnection connection2 = new MySqlConnection(conString);
+            MySqlCommand command2 = new MySqlCommand(Query, connection2);
+            connection2.Open();
+            MySqlDataReader reader = command2.ExecuteReader();          
+            reader.Read();
+            robotNameTxt.Text = (reader["robotName"].ToString());
+            robotSpeedTxt.Text = (reader["robotSpeed"].ToString());
+            gameList.SelectedValue = (reader["gameID"].ToString());
+            connection2.Close();
         }
     }
+    
 }
