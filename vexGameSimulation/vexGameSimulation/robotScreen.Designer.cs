@@ -153,14 +153,12 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ActionNameTxt,
             this.CanAcBePerformed,
             this.probOfSuccess,
             this.timeTaken});
-            this.dataGridView1.DataSource = this.robottableBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(95, 124);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(444, 150);

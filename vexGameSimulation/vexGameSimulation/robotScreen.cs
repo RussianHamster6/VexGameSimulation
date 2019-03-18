@@ -18,7 +18,8 @@ namespace vexGameSimulation
         string conString = "datasource=localhost;port=3306;uid=root;pwd=root;database=vexgamesim"; //Establishes the connection string for use later in queries 
         string Query; //Sets a Query string that can be reassigned
         int i; //Sets an int to i that can then be reassigned 
-       
+        int maxRobID;
+
         public robotScreen()
         {
             InitializeComponent();
@@ -60,6 +61,33 @@ namespace vexGameSimulation
             RobotList.Enabled = true; //Enables the RobotList in case it was disabled
             command.ExecuteNonQuery(); //Executes the command
             connection.Close(); //Closes the connection
+
+            //Load the Values of the default game VexTurningPoint into the game actions tab in the page
+
+            Query = "SELECT MAX(robotID) FROM robottable"; //Selects highest robotID from robottable
+            MySqlConnection connection3 = new MySqlConnection(conString); //SQL things that I have commented thousands of times before
+            MySqlCommand command3 = new MySqlCommand(Query, connection3);
+            connection3.Open();
+            MySqlDataReader reader = command3.ExecuteReader();
+            reader.Read();
+            maxRobID = Int32.Parse(reader["MAX(robotID)"].ToString()) + 1; //Sets maxRobID to be the value of the object stringified and then turned into an int because
+            connection3.Close();                                           //Objects don't like being turned into int values
+            
+
+        int rowIndex = 0; //Sets the index to be used
+
+            while (rowIndex < turningPoint.actionlist.Length) //Steps through for all the values inside the turning point game file
+            {
+                int rowId = dataGridView1.Rows.Add();//Gives the rowId a new row to point to
+
+                DataGridViewRow row = dataGridView1.Rows[rowId];//creates the row object for a DataGridViewRow and gives it to dataGridView1.Rows
+
+                row.Cells[0].Value = turningPoint.actionlist[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
+
+                rowIndex++; //Iterates to the next index
+
+            }
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -83,6 +111,7 @@ namespace vexGameSimulation
         {
             try
             {
+                //Saves Data For RobotTable
                 float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //convert the robotSpeedTxt input into a floating point number
                 Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed,gameID) VALUES(@robotName, @robotSpeed, @gameID);"; //Creates the query for saving the parameters @robotName, @robotSpeed, @gameID to the columns robotName,robotSpeed,gameID
                 MySqlConnection connection = new MySqlConnection(conString); //sets the string to establish the connection to the database  
@@ -94,6 +123,29 @@ namespace vexGameSimulation
                 connection.Open(); //Opens the connection
                 reader = command.ExecuteReader(); //Executes the command using the reader
                 connection.Close(); //Closes the connection
+
+                //Saves Data For RobotActionTable
+                int index = 0; //sets the index
+                
+                while (index < dataGridView1.Rows.Count)//does a loop for the count of rows in dataGridView1
+                {
+                    DataGridViewRow row  = dataGridView1.Rows[index]; //Selects the row to save data from
+
+                    Query = "INSERT INTO vexgamesim.robotActionTable(robotID,canPerformAction,probOfSuccess,timeToComplete,actionName) VALUES(@robotID,@canPerformAction,@probOfSuccess,@timeToComplete,@actionName);"; //The query with parameters
+                    MySqlCommand commandAction = new MySqlCommand(Query, connection); //Sets the command to be executed
+                    commandAction.Parameters.AddWithValue("@robotID", maxRobID); //Sets thee @robotID parameter that is passed to the query
+                    commandAction.Parameters.AddWithValue("@canPerformAction", row.Cells[1].Value); //Sets the @canPerformAction parameter that is passed to the query
+                    commandAction.Parameters.AddWithValue("@probOfSuccess", row.Cells[2].Value);//Sets the @probOfSuccess parameter that is passed to the query
+                    commandAction.Parameters.AddWithValue("@timeToComplete", row.Cells[3].Value);//Sets the @timeToComplete parameter that is passed to the query
+                    commandAction.Parameters.AddWithValue("@actionName", row.Cells[0].Value);//Sets the @actionName parameter that is passed to the query
+                    connection.Open(); //Opens the connection
+                    reader = commandAction.ExecuteReader(); //executes the commandAction
+                    connection.Close(); //closes the connection
+                    index++; //adds the index 
+                }
+                maxRobID = maxRobID + 1;
+
+
                 MessageBox.Show("Data has been Saved!"); //Shows a messagebox detailing if the data has been saved.
 
             }
@@ -114,7 +166,7 @@ namespace vexGameSimulation
         {
             try
             {
-                float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //Checks too see if the robotSpeedTxt can be converted into a float
+                float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //Checks to see if the robotSpeedTxt can be converted into a float
             }
             catch
             {
@@ -148,8 +200,8 @@ namespace vexGameSimulation
 
         private void loadBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 Query = "SELECT * FROM robottable WHERE robotID = " + RobotList.SelectedValue; //Creates the query for loading data from the robottable where the robotID is the selected value
                 MySqlConnection connection = new MySqlConnection(conString); //creates a new connection using the connection string
                 MySqlCommand command = new MySqlCommand(Query, connection); //creates a command with the query and the connection
@@ -160,12 +212,32 @@ namespace vexGameSimulation
                 robotSpeedTxt.Text = (reader["robotSpeed"].ToString()); //sets the robotSpeedTxt.Text to be equal to the robot Speed
                 gameList.SelectedValue = (reader["gameID"].ToString()); //sets the gameList's Selected Value to be the same as the GameID in the database
                 connection.Close(); //Closes the connection
+
+                int index = 0; 
+                while (index < dataGridView1.RowCount - 1)
+                {
+                    MySqlConnection connection2 = new MySqlConnection(conString); //MySql Things
+                    DataGridViewRow row = dataGridView1.Rows[index];
+                    string Query = "SELECT * FROM robotactiontable WHERE robotID = '" + RobotList.SelectedValue.ToString() + "' AND actionName = '" + row.Cells[0].Value.ToString() + "'";
+                    connection = new MySqlConnection(conString);    
+                    MySqlCommand commmand = new MySqlCommand(Query, connection2);
+                    connection2.Open();
+                    MySqlDataReader reader2 = commmand.ExecuteReader();
+                    reader2.Read();
+                    row.Cells[1].Value = reader2["canPerformAction"]; //Sets the value of the current row.Cell[1] to the value of can perform action
+                    row.Cells[2].Value = reader2["probOfSuccess"].ToString(); //Sets the value of the current row.Cell[2] to the value of the probOfSuccess passed as a string
+                    row.Cells[3].Value = reader2["timeToComplete"].ToString(); //Sets the value of the current row.Cells[3] to the value of the timeToComplete passed as a string
+                    connection2.Close();
+                    
+                    index++; //Increses the index value
+                }
+
             }
-            catch
+            /*catch
             {
                 MessageBox.Show("Failed to load"); //Shows a messagebox with the failed to load error
-            }
+            }*/
         }
     }
     
-}
+//}

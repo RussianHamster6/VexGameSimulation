@@ -15,7 +15,7 @@ namespace vexGameSimulation
         public float robotYPosB = 1.5f;
 
         //creates the list of possible actions 
-        string[] actionlist = { "pickUpBall","hitTopFlag","hitMidFlag","hitBotFlag","flipCap","stackCapLow","stackCapHigh","pickUpCap","parkLow","parkHigh" };
+        public static string[] actionlist = { "pickUpBall","hitTopFlag","hitMidFlag","hitBotFlag","flipCap","stackCapLow","stackCapHigh","pickUpCap","parkLow","parkHigh" };
 
         //initialises all the objects in the game simulation
         //All Flag actions
