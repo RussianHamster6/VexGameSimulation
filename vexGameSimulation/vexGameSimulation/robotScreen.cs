@@ -204,9 +204,9 @@ namespace vexGameSimulation
                     connection.Open();//Opens the connection
                     reader = command.ExecuteReader(); //executes the command with the reader
                     connection.Close();//Closes the connection
-                    MessageBox.Show("Data has been Changed!"); //Shows a messagebox saying the data has been changed
                     index++;
                 }
+                MessageBox.Show("Data has been Changed!"); //Shows a messagebox saying the data has been changed
             }
             catch
             {
