@@ -190,7 +190,23 @@ namespace vexGameSimulation
                 connection.Open();//Opens the connection
                 reader = command.ExecuteReader(); //executes the command with the reader
                 connection.Close();//Closes the connection
-                MessageBox.Show("Data has been Changed!"); //Shows a messagebox saying the data has been changed
+
+                int index = 0;
+                while (index < dataGridView1.RowCount - 1)
+                {
+                    DataGridViewRow row = dataGridView1.Rows[index];
+                    Query = "update vexgamesim.robotactiontable set canPerformAction = @canPerformAction, probOfSuccess = @probOfSuccess, timeToComplete = @timeToComplete where robotID = '" + RobotList.SelectedValue.ToString() + "' AND actionName ='" + row.Cells[0].Value.ToString() + "'";
+                    connection = new MySqlConnection(conString);//Establishes the connection using the conString
+                    command = new MySqlCommand(Query, connection); //Creates the command that will be executed 
+                    command.Parameters.AddWithValue("@canPerformAction", row.Cells[1].Value); //Adds the value from rootNameTxt to the paramater @canPerformAction
+                    command.Parameters.AddWithValue("@probOfSuccess", row.Cells[2].Value); //Adds the robotSpeed to the parameter @probOfSuccess
+                    command.Parameters.AddWithValue("@timeToComplete",row.Cells[3].Value); //Adds the gameList.SelectedValue value to the parameter @timeToComplete
+                    connection.Open();//Opens the connection
+                    reader = command.ExecuteReader(); //executes the command with the reader
+                    connection.Close();//Closes the connection
+                    MessageBox.Show("Data has been Changed!"); //Shows a messagebox saying the data has been changed
+                    index++;
+                }
             }
             catch
             {
