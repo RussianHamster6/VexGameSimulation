@@ -43,9 +43,26 @@ namespace vexGameSimulation
 
         }
 
+        string runPosASim()
+        {
+            string result = "ASim";
+            return result;
+        }
+
+        string runPosBSim()
+        {
+            string result = "BSim";
+            return result;
+        }
+
         private void runBtn_Click(object sender, EventArgs e)
         {
+            turningPoint oturningPoint = new turningPoint();
 
+            foreach (GameObject o in oturningPoint.gameObjects)
+            {
+
+            }
         }
     }
 }
