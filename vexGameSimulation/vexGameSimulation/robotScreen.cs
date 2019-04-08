@@ -19,6 +19,9 @@ namespace vexGameSimulation
         string Query; //Sets a Query string that can be reassigned
         int i; //Sets an int to i that can then be reassigned 
         int maxRobID;
+        public static List<string> requiredAccList = new List<string>();
+        public static List<bool> canPerformAcList = new List<bool>();
+        public static List<float> timeToComplete = new List<float>();
 
         public robotScreen()
         {
@@ -105,6 +108,17 @@ namespace vexGameSimulation
             HomeScreen temp = new HomeScreen(); //Creates a new HomeScreen Object
             temp.Show();//Shows the new HomeScreen Object
             this.Hide(); //Hides the current object
+            int i = 0;
+            DataGridViewRow row;
+            while (i < dataGridView1.RowCount)
+            {
+                row = dataGridView1.Rows[i];
+
+                requiredAccList.Add(row.Cells[0].ToString());
+                canPerformAcList.Add(Boolean.Parse(row.Cells[1].ToString()));
+                timeToComplete.Add(float.Parse(row.Cells[3].ToString()));
+                i++;
+            }
         }
 
         private void saveAsNewBtn_Click(object sender, EventArgs e)

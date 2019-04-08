@@ -23,6 +23,7 @@ namespace vexGameSimulation
         //Constructor
         public turningPoint()
         {
+
             GameObject redTopFlag = new GameObject("hitTopFlag", 1f, 5.5f, 2, false, "pickUpBall");
             GameObject redMidFlag = new GameObject("hitMidFlag", 1f, 5.5f, 2, false, "pickUpBall");
             GameObject redBotFlag = new GameObject("hitBotFlag", 1f, 5.5f, 1, false, "pickUpBall");

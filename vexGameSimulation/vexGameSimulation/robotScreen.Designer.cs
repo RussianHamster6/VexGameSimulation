@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ActionNameTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CanAcBePerformed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.probOfSuccess = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeTaken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.robotNameTxt = new System.Windows.Forms.TextBox();
@@ -40,11 +45,6 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.robotSpeedTxt = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ActionNameTxt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CanAcBePerformed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.probOfSuccess = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeTaken = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.robottableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vexgamesimDataSet = new vexGameSimulation.vexgamesimDataSet();
             this.robottableTableAdapter = new vexGameSimulation.vexgamesimDataSetTableAdapters.robottableTableAdapter();
@@ -52,6 +52,41 @@
             ((System.ComponentModel.ISupportInitialize)(this.robottableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vexgamesimDataSet)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ActionNameTxt,
+            this.CanAcBePerformed,
+            this.probOfSuccess,
+            this.timeTaken});
+            this.dataGridView1.Location = new System.Drawing.Point(95, 124);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(444, 150);
+            this.dataGridView1.TabIndex = 27;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ActionNameTxt
+            // 
+            this.ActionNameTxt.HeaderText = "Action Name";
+            this.ActionNameTxt.Name = "ActionNameTxt";
+            this.ActionNameTxt.ReadOnly = true;
+            // 
+            // CanAcBePerformed
+            // 
+            this.CanAcBePerformed.HeaderText = "Can Action Be Performed";
+            this.CanAcBePerformed.Name = "CanAcBePerformed";
+            // 
+            // probOfSuccess
+            // 
+            this.probOfSuccess.HeaderText = "Probability of Success";
+            this.probOfSuccess.Name = "probOfSuccess";
+            // 
+            // timeTaken
+            // 
+            this.timeTaken.HeaderText = "Time Taken for action to complete (s)";
+            this.timeTaken.Name = "timeTaken";
             // 
             // label1
             // 
@@ -151,41 +186,6 @@
             this.robotSpeedTxt.TabIndex = 26;
             this.robotSpeedTxt.TextChanged += new System.EventHandler(this.robotSpeedTxt_TextChanged);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ActionNameTxt,
-            this.CanAcBePerformed,
-            this.probOfSuccess,
-            this.timeTaken});
-            this.dataGridView1.Location = new System.Drawing.Point(95, 124);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(444, 150);
-            this.dataGridView1.TabIndex = 27;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // ActionNameTxt
-            // 
-            this.ActionNameTxt.HeaderText = "Action Name";
-            this.ActionNameTxt.Name = "ActionNameTxt";
-            this.ActionNameTxt.ReadOnly = true;
-            // 
-            // CanAcBePerformed
-            // 
-            this.CanAcBePerformed.HeaderText = "Can Action Be Performed";
-            this.CanAcBePerformed.Name = "CanAcBePerformed";
-            // 
-            // probOfSuccess
-            // 
-            this.probOfSuccess.HeaderText = "Probability of Success";
-            this.probOfSuccess.Name = "probOfSuccess";
-            // 
-            // timeTaken
-            // 
-            this.timeTaken.HeaderText = "Time Taken for action to complete (s)";
-            this.timeTaken.Name = "timeTaken";
-            // 
             // robottableBindingSource
             // 
             this.robottableBindingSource.DataMember = "robottable";
@@ -241,7 +241,6 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox robotSpeedTxt;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private vexgamesimDataSet vexgamesimDataSet;
         private System.Windows.Forms.BindingSource robottableBindingSource;
         private vexgamesimDataSetTableAdapters.robottableTableAdapter robottableTableAdapter;
@@ -249,5 +248,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn CanAcBePerformed;
         private System.Windows.Forms.DataGridViewTextBoxColumn probOfSuccess;
         private System.Windows.Forms.DataGridViewTextBoxColumn timeTaken;
+        public System.Windows.Forms.DataGridView dataGridView1;
     }
 }

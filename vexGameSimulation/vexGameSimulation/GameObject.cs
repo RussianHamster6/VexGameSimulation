@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace vexGameSimulation
 {
-    class GameObject
+    public class GameObject
     {
         //Creates the auto implemented properties for the below properties so that they can be later created in a constructor in the template
         public string requiredAction { get; set; }
