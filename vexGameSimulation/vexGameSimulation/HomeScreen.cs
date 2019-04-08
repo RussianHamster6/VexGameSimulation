@@ -141,7 +141,9 @@ namespace vexGameSimulation
             bool prevAccNeeded;
             bool canDoAcc;
             bool beenScored;
-            
+
+            float tilePerSecondSpeed = robotScreen.robotSpeedMS / 0.6096f;
+
             GameObject closeO = new GameObject("PlaceHolder", 0f, 0f, 0, false, "PlaceHolder");
 
             while (currentTime < 105)
@@ -175,9 +177,12 @@ namespace vexGameSimulation
                 }
                 //Add the optimal outcome to the list
                 actionsCompletedList.Add(closeO);
-                currentTime = currentTime - getTimeForAcc(closeO);
+                currentTime = currentTime - (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
 
+                
             }
+            //display list of best moves
+            MessageBox.Show(actionsCompletedList.ToString());
         }
     }
 }

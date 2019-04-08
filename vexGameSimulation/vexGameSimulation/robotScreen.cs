@@ -22,6 +22,7 @@ namespace vexGameSimulation
         public static List<string> requiredAccList = new List<string>();
         public static List<bool> canPerformAcList = new List<bool>();
         public static List<float> timeToComplete = new List<float>();
+        public static float robotSpeedMS;
 
         public robotScreen()
         {
@@ -119,6 +120,7 @@ namespace vexGameSimulation
                 timeToComplete.Add(float.Parse(row.Cells[3].ToString()));
                 i++;
             }
+            robotSpeedMS = float.Parse(robotSpeedTxt.Text);
         }
 
         private void saveAsNewBtn_Click(object sender, EventArgs e)
