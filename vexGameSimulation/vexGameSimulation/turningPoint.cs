@@ -17,6 +17,8 @@ namespace vexGameSimulation
         //creates the list of possible actions 
         public static string[] actionlist = { "pickUpBall","hitTopFlag","hitMidFlag","hitBotFlag","flipCap","stackCapLow","stackCapHigh","pickUpCap","parkLow","parkHigh" };
 
+        public static string limitedAction = "pickUpBall";
+        public static int limitedActionAmount = 2;
         //initialises all the objects in the game simulation
         //All Flag actions
         public List<GameObject> gameObjects = new List<GameObject>();
@@ -30,9 +32,9 @@ namespace vexGameSimulation
             GameObject neutralTopFlag = new GameObject("hitTopFlag", 3f, 5.5f, 2, false, "pickUpBall");
             GameObject neutralMidFlag = new GameObject("hitMidFlag", 3f, 5.5f, 2, false, "pickUpBall");
             GameObject neutralBotFlag = new GameObject("hitBotFlag", 3f, 5.5f, 2, false, "pickUpBall");
-            GameObject blueTopFlag = new GameObject("hitTopFlag", 5f, 5.5f, 2, true, "pickUpBall");
-            GameObject blueMidFlag = new GameObject("hitMidFlag", 5f, 5.5f, 2, true, "pickUpBall");
-            GameObject blueBotFlag = new GameObject("hitBotFlag", 5f, 5.5f, 2, true, "pickUpBall");
+            GameObject blueTopFlag = new GameObject("hitTopFlag", 5f, 5.5f, 2, false, "pickUpBall");
+            GameObject blueMidFlag = new GameObject("hitMidFlag", 5f, 5.5f, 2, false, "pickUpBall");
+            GameObject blueBotFlag = new GameObject("hitBotFlag", 5f, 5.5f, 2, false, "pickUpBall");
             //All Flipping Cap Actions
             GameObject redCapNearFlag = new GameObject("flipCap", 1.5f, 4.5f, 1, false, "");
             GameObject redCapNearWall = new GameObject("flipCap", 2.5f, 0.5f, 1, false, "");
