@@ -106,6 +106,35 @@ namespace vexGameSimulation
                 return true;
             }
         }
+        bool checkActionLimit(GameObject o)
+        {
+            int count = 0;
+            int index = 0;
+            if (turningPoint.limitedAction == o.GetRequiredAction())
+            {
+                while (index < actionsCompletedList.Count)
+                {
+                    if (actionsCompletedList[index].GetRequiredAction() == turningPoint.limitedAction)
+                    {
+                        count++;
+                    }
+                    index++;
+                    if (count == turningPoint.limitedActionAmount)
+                    {
+                        return false;
+                    }
+                }
+                if (count < turningPoint.limitedActionAmount)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+            return true; //This needs to be tested and may need to be changed.
+        }
 
         string runPosASim()
         {
@@ -141,8 +170,10 @@ namespace vexGameSimulation
             bool prevAccNeeded;
             bool canDoAcc;
             bool beenScored;
+            bool limitedAction;
 
             float tilePerSecondSpeed = robotScreen.robotSpeedMS / 0.6096f;
+            int totalScore = 0;
 
             GameObject closeO = new GameObject("PlaceHolder", 0f, 0f, 0, false, "PlaceHolder");
 
@@ -159,9 +190,11 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if the object has previously been scored
                     beenScored = checkBeenScored(o);
+                    //Checks if there is too many of the limited action on the robot
+                    limitedAction = checkActionLimit(o);
 
                     //If all above checks passed determine distance
-                    if (canDoAcc && prevAccNeeded && beenScored)
+                    if (canDoAcc && prevAccNeeded && beenScored && limitedAction)
                     {
                         double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
 
@@ -178,8 +211,8 @@ namespace vexGameSimulation
                 //Add the optimal outcome to the list
                 actionsCompletedList.Add(closeO);
                 currentTime = currentTime - (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
-
-                
+                closeO.beenScored = true;
+                totalScore = totalScore + closeO.GetPointVal();
             }
             //display list of best moves
             MessageBox.Show(actionsCompletedList.ToString());
