@@ -15,9 +15,10 @@ namespace vexGameSimulation
         public int pointVal { get; set; }
         public bool beenScored { get; set; }
         public string previousActionNeededToScore { get; set; }
+        public string Name { get; set; }
 
         //Constructor function to create a new GameObject
-        public GameObject(string reqAction, float X, float Y, int points, bool scored, string PANTScore)
+        public GameObject(string reqAction, float X, float Y, int points, bool scored, string PANTScore, string name)
         {
             requiredAction = reqAction;
             Xlocation = X;
@@ -25,6 +26,7 @@ namespace vexGameSimulation
             pointVal = points;
             beenScored = scored;
             previousActionNeededToScore = PANTScore;
+            Name = name;
         } 
 
         //Getter functions to return the specified property of the GameObject
@@ -34,6 +36,7 @@ namespace vexGameSimulation
         public int GetPointVal() { return pointVal; }
         public bool GetBeenScored() { return beenScored; }
         public string GetPANTScore() { return previousActionNeededToScore; }
+        public string GetName() { return Name; }
     }
 }
 

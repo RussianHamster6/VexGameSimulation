@@ -123,6 +123,19 @@ namespace vexGameSimulation
             }
             return true; //This needs to be tested and may need to be changed.
         }
+        bool checkBeenScored(GameObject o)
+        {
+            int index = 0;
+            while (index < actionsCompletedList.Count)
+            {
+                if (actionsCompletedList[index].GetName() == o.GetName())
+                {
+                    return false ;
+                }
+            }
+            return true;
+        }
+
 
         string runPosASim()
         {
@@ -146,6 +159,7 @@ namespace vexGameSimulation
         }
 
         public List<GameObject> actionsCompletedList = new List<GameObject>();
+        public List<string> nameOfActionsList = new List<string>();
 
         private void runBtn_Click(object sender, EventArgs e)
         {
@@ -163,6 +177,7 @@ namespace vexGameSimulation
             bool prevAccNeeded;
             bool canDoAcc;
             bool limitedAction;
+            bool beenScored;
 
             //creates the value of speed based off of the vex robotics competition tiles standard length of 0.6096M
             float tilePerSecondSpeed = robotScreen.robotSpeedMS / 0.6096f;
@@ -170,12 +185,12 @@ namespace vexGameSimulation
             int totalScore = 0;
 
             //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
-            GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder");
-
+            GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder","placeholder");
             while (currentTime < 105)
             {
                 foreach (GameObject o in oturningPoint.gameObjects)
                 {
+                    Console.WriteLine(robotScreen.canPerformAcList[0]);
                     float objXLoc = o.GetXlocation();
                     float objYLoc = o.GetYlocation();
                     
@@ -185,9 +200,11 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
-
+                    beenScored = checkBeenScored(o);
                     //If all above checks passed determine distance
-                    if (canDoAcc && prevAccNeeded && !o.GetBeenScored() && limitedAction)
+                    Console.WriteLine(o.GetName());
+                    Console.WriteLine(o.GetBeenScored());
+                    if (canDoAcc && prevAccNeeded && beenScored && limitedAction)
                     {
                         double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
 
@@ -195,7 +212,7 @@ namespace vexGameSimulation
                         {
                             closeO = o;
                         }
-                        else if (oDist > pythag(closeO.GetXlocation(), closeO.GetYlocation(),robotPosX,robotPosY))
+                        else if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(),robotPosX,robotPosY))
                         {
                             closeO = o;
                         }
@@ -203,12 +220,18 @@ namespace vexGameSimulation
                 }
                 //Add the optimal outcome to the list
                 actionsCompletedList.Add(closeO);
-                currentTime = currentTime - (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
+                currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
                 closeO.beenScored = true;
                 totalScore = totalScore + closeO.GetPointVal();
             }
             //display list of best moves
-            MessageBox.Show(actionsCompletedList.ToString());
+            int i = 0;
+            MessageBox.Show(actionsCompletedList.Count.ToString());
+            while ( i < actionsCompletedList.Count)
+            {
+                MessageBox.Show(actionsCompletedList[i].GetName());
+                i++;
+            }
         }
     }
 }

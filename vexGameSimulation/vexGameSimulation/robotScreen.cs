@@ -111,13 +111,25 @@ namespace vexGameSimulation
             this.Hide(); //Hides the current object
             int i = 0;
             DataGridViewRow row;
-            while (i < dataGridView1.RowCount)
+            while (i <= dataGridView1.RowCount - 2)
             {
                 row = dataGridView1.Rows[i];
+                
+                requiredAccList.Add(row.Cells[0].Value.ToString());
 
-                requiredAccList.Add(row.Cells[0].ToString());
-                canPerformAcList.Add(Boolean.Parse(row.Cells[1].ToString()));
-                timeToComplete.Add(float.Parse(row.Cells[3].ToString()));
+                Console.WriteLine(row.Cells[1].Value.ToString());
+                if (row.Cells[1].Value.ToString() == "True" )
+                {
+                    bool boolToAdd = true;
+                    canPerformAcList.Add(boolToAdd);
+                }
+                else
+                {
+                    bool boolToAdd = false;
+                    canPerformAcList.Add(boolToAdd);
+                }
+                float timeToAdd = Convert.ToSingle(row.Cells[3].Value);
+                timeToComplete.Add(timeToAdd);
                 i++;
             }
             robotSpeedMS = float.Parse(robotSpeedTxt.Text);
@@ -143,7 +155,7 @@ namespace vexGameSimulation
                 //Saves Data For RobotActionTable
                 int index = 0; //sets the index
                 
-                while (index < dataGridView1.Rows.Count)//does a loop for the count of rows in dataGridView1
+                while (index < dataGridView1.Rows.Count -1)//does a loop for the count of rows in dataGridView1
                 {
                     DataGridViewRow row  = dataGridView1.Rows[index]; //Selects the row to save data from
 
