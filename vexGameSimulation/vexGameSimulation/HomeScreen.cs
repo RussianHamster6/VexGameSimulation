@@ -125,15 +125,28 @@ namespace vexGameSimulation
         }
         bool checkBeenScored(GameObject o)
         {
-            int index = 0;
-            while (index < actionsCompletedList.Count)
+            int i = 0;
+            bool flag = false;
+            if (actionsCompletedList.Count == 0)
             {
-                if (actionsCompletedList[index].GetName() == o.GetName())
+                flag = true;
+            }
+            else
+            {
+                while (i < actionsCompletedList.Count)
                 {
-                    return false ;
+                    if (actionsCompletedList[i].GetName() == o.GetName())
+                    {
+                        flag = false;
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+                    i++;
                 }
             }
-            return true;
+            return flag;
         }
 
 
@@ -180,21 +193,22 @@ namespace vexGameSimulation
             bool beenScored;
 
             //creates the value of speed based off of the vex robotics competition tiles standard length of 0.6096M
-            float tilePerSecondSpeed = robotScreen.robotSpeedMS / 0.6096f;
+            float tilePerSecondSpeed = (robotScreen.robotSpeedMS * 6.5626f) / 2 ;
             //Initialises the score value at 0 
             int totalScore = 0;
 
-            //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
-            GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder","placeholder");
+            
             while (currentTime < 105)
             {
+                //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
+                GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
                 foreach (GameObject o in oturningPoint.gameObjects)
                 {
-                    Console.WriteLine(robotScreen.canPerformAcList[0]);
+                   
                     float objXLoc = o.GetXlocation();
                     float objYLoc = o.GetYlocation();
-                    
-                    //Checks if the robot can do the action needed for the object
+
+                    //Checks if the robot can do the action needed for the 3.281
                     canDoAcc = checkCanDoacc(o);
                     //Checks if object needs a previous action to score the object
                     prevAccNeeded = checkPANTScore(o);
@@ -202,19 +216,29 @@ namespace vexGameSimulation
                     limitedAction = checkActionLimit(o);
                     beenScored = checkBeenScored(o);
                     //If all above checks passed determine distance
-                    Console.WriteLine(o.GetName());
+                    
                     Console.WriteLine(o.GetBeenScored());
-                    if (canDoAcc && prevAccNeeded && beenScored && limitedAction)
+                    
+
+                    if ((canDoAcc == true &&
+                        prevAccNeeded == true) &&
+                        (beenScored == true &&
+                        limitedAction == true))
                     {
+                        Console.WriteLine(o.GetName());
+                        Console.WriteLine("All True" + beenScored);
                         double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
 
-                        if (closeO.GetRequiredAction() == "PlaceHolder")
+                        if (beenScored)
                         {
-                            closeO = o;
-                        }
-                        else if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(),robotPosX,robotPosY))
-                        {
-                            closeO = o;
+                            if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY))
+                            {
+                                closeO = o;
+                            }
+                            else if (closeO.GetName() == "placeholder")
+                            {
+                                closeO = o;
+                            }
                         }
                     }
                 }
