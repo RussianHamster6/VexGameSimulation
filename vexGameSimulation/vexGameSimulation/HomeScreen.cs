@@ -193,7 +193,7 @@ namespace vexGameSimulation
             bool beenScored;
 
             //creates the value of speed based off of the vex robotics competition tiles standard length of 0.6096M
-            float tilePerSecondSpeed = (robotScreen.robotSpeedMS * 6.5626f) / 2 ;
+            float tilePerSecondSpeed = (robotScreen.robotSpeedMS * 6.5626f);
             //Initialises the score value at 0 
             int totalScore = 0;
 
@@ -216,30 +216,23 @@ namespace vexGameSimulation
                     limitedAction = checkActionLimit(o);
                     beenScored = checkBeenScored(o);
                     //If all above checks passed determine distance
-                    
-                    Console.WriteLine(o.GetBeenScored());
-                    
 
                     if ((canDoAcc == true &&
                         prevAccNeeded == true) &&
                         (beenScored == true &&
                         limitedAction == true))
                     {
-                        Console.WriteLine(o.GetName());
-                        Console.WriteLine("All True" + beenScored);
                         double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
-
-                        if (beenScored)
+                        
+                        if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY))
                         {
-                            if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY))
-                            {
-                                closeO = o;
-                            }
-                            else if (closeO.GetName() == "placeholder")
-                            {
-                                closeO = o;
-                            }
+                            closeO = o;
                         }
+                        else if (closeO.GetName() == "placeholder")
+                        {
+                            closeO = o;
+                        }
+                        
                     }
                 }
                 //Add the optimal outcome to the list
