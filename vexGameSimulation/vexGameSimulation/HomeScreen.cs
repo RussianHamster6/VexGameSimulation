@@ -79,7 +79,7 @@ namespace vexGameSimulation
         {
             if (o.GetPANTScore().Length > 0)
             {
-                foreach (GameObject a in actionsCompletedList)
+                foreach (GameObject a in actionsCompletedListB)
                 {
                     if (a.GetRequiredAction() == o.GetPANTScore())
                     {
@@ -100,9 +100,9 @@ namespace vexGameSimulation
             int index = 0;
             if (turningPoint.limitedAction == o.GetRequiredAction())
             {
-                while (index < actionsCompletedList.Count)
+                while (index < actionsCompletedListB.Count)
                 {
-                    if (actionsCompletedList[index].GetRequiredAction() == turningPoint.limitedAction)
+                    if (actionsCompletedListB[index].GetRequiredAction() == turningPoint.limitedAction)
                     {
                         count++;
                     }
@@ -127,15 +127,15 @@ namespace vexGameSimulation
         {
             int i = 0;
             bool flag = true;
-            if (actionsCompletedList.Count == 0)
+            if (actionsCompletedListB.Count == 0)
             {
                 flag = true;
             }
             else
             {
-                while (i < actionsCompletedList.Count && flag == true)
+                while (i < actionsCompletedListB.Count && flag == true)
                 {
-                    if (actionsCompletedList[i].GetName() == o.GetName())
+                    if (actionsCompletedListB[i].GetName() == o.GetName())
                     {
                         flag = false;
                     }
@@ -149,19 +149,6 @@ namespace vexGameSimulation
             return flag;
         }
 
-
-        string runPosASim()
-        {
-            string result = "ASim";
-            return result;
-        }
-
-        string runPosBSim()
-        {
-            string result = "BSim";
-            return result;
-        }
-
         public double pythag(float posX1, float posY1, float posX2, float posY2)
         {
             float xDist = posX1 - posX2;
@@ -171,11 +158,12 @@ namespace vexGameSimulation
             return result;
         }
 
-        public List<GameObject> actionsCompletedList = new List<GameObject>();
-        public List<string> nameOfActionsList = new List<string>();
+        public List<GameObject> actionsCompletedListA = new List<GameObject>();
 
-        private void runBtn_Click(object sender, EventArgs e)
+        public void ASideSim()
         {
+            //A SIDE SIM
+
             //Assigning Variables 
             //Creating a new instance of the turning point game 
             turningPoint oturningPoint = new turningPoint();
@@ -197,14 +185,14 @@ namespace vexGameSimulation
             //Initialises the score value at 0 
             int totalScore = 0;
 
-            
+
             while (currentTime < 105)
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
                 foreach (GameObject o in oturningPoint.gameObjects)
                 {
-                   
+
                     float objXLoc = o.GetXlocation();
                     float objYLoc = o.GetYlocation();
 
@@ -223,7 +211,7 @@ namespace vexGameSimulation
                         limitedAction == true))
                     {
                         double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
-                        
+
                         if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY))
                         {
                             closeO = o;
@@ -232,23 +220,132 @@ namespace vexGameSimulation
                         {
                             closeO = o;
                         }
-                        
+
                     }
                 }
-                //Add the optimal outcome to the list
-                actionsCompletedList.Add(closeO);
-                currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
-                closeO.beenScored = true;
-                totalScore = totalScore + closeO.GetPointVal();
+                //Sets GameTime to maximum if placeholder is the CloseO still
+                if (closeO.GetName() == "placeholder")
+                {
+                    currentTime = 105;
+                }
+                else
+                {
+                    //Add the optimal outcome to the list
+                    actionsCompletedListA.Add(closeO);
+                    currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
+                    closeO.beenScored = true;
+                    totalScore = totalScore + closeO.GetPointVal();
+                }
             }
             //display list of best moves
             int i = 0;
-            MessageBox.Show(actionsCompletedList.Count.ToString());
-            while ( i < actionsCompletedList.Count)
+            string bestAcString = "";
+            MessageBox.Show("Your Robot Can Do " + actionsCompletedListA.Count.ToString() + " Moves On the A side");
+            while (i < actionsCompletedListA.Count)
             {
-                MessageBox.Show(actionsCompletedList[i].GetName());
+                bestAcString = bestAcString + ", " + actionsCompletedListA[i].GetName();
                 i++;
             }
+            MessageBox.Show(bestAcString);
+        }
+
+        public List<GameObject> actionsCompletedListB = new List<GameObject>();
+
+        public void BSideSim()
+        {
+            //B SIDE SIM
+
+            //Assigning Variables 
+            //Creating a new instance of the turning point game 
+            turningPoint oturningPoint = new turningPoint();
+
+            //Variables for the robot position
+            float robotPosX = oturningPoint.robotXPosB;
+            float robotPosY = oturningPoint.robotYPosB;
+            //variables for the current time passed in the game 
+            float currentTime = 0;
+
+            //Bool values for the functions to assign values to.
+            bool prevAccNeeded;
+            bool canDoAcc;
+            bool limitedAction;
+            bool beenScored;
+
+            //creates the value of speed based off of the vex robotics competition tiles standard length of 0.6096M
+            float tilePerSecondSpeed = (robotScreen.robotSpeedMS * 6.5626f);
+            //Initialises the score value at 0 
+            int totalScore = 0;
+
+
+            while (currentTime < 105)
+            {
+                //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
+                GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
+                foreach (GameObject o in oturningPoint.gameObjects)
+                {
+
+                    float objXLoc = o.GetXlocation();
+                    float objYLoc = o.GetYlocation();
+
+                    //Checks if the robot can do the action needed for the 3.281
+                    canDoAcc = checkCanDoacc(o);
+                    //Checks if object needs a previous action to score the object
+                    prevAccNeeded = checkPANTScore(o);
+                    //Checks if there is too many of the limited action on the robot
+                    limitedAction = checkActionLimit(o);
+                    beenScored = checkBeenScored(o);
+                    //If all above checks passed determine distance
+
+                    if ((canDoAcc == true &&
+                        prevAccNeeded == true) &&
+                        (beenScored == true &&
+                        limitedAction == true))
+                    {
+                        double oDist = pythag(objXLoc, objYLoc, robotPosX, robotPosY);
+
+                        if (oDist < pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY))
+                        {
+                            closeO = o;
+                        }
+                        else if (closeO.GetName() == "placeholder")
+                        {
+                            closeO = o;
+                        }
+
+                    }
+                }
+                //Sets GameTime to maximum if placeholder is the CloseO still
+                if (closeO.GetName() == "placeholder")
+                {
+                    currentTime = 105;
+                }
+                else
+                {
+                    //Add the optimal outcome to the list
+                    actionsCompletedListA.Add(closeO);
+                    currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
+                    closeO.beenScored = true;
+                    totalScore = totalScore + closeO.GetPointVal();
+                }
+            }
+            //display list of best moves
+            int i = 0;
+            string bestAcString = "";
+            MessageBox.Show("Your Robot Can Do " + actionsCompletedListA.Count.ToString() + " Moves On the A side");
+            while (i < actionsCompletedListA.Count)
+            {
+                bestAcString = bestAcString + ", " + actionsCompletedListA[i].GetName();
+                i++;
+            }
+            MessageBox.Show(bestAcString);
+        }
+
+        private void runBtn_Click(object sender, EventArgs e)
+        {
+            actionsCompletedListA = new List<GameObject>();
+            actionsCompletedListB = new List<GameObject>();
+            ASideSim();
+            BSideSim();
         }
     }
 }
