@@ -126,14 +126,14 @@ namespace vexGameSimulation
         bool checkBeenScored(GameObject o)
         {
             int i = 0;
-            bool flag = false;
+            bool flag = true;
             if (actionsCompletedList.Count == 0)
             {
                 flag = true;
             }
             else
             {
-                while (i < actionsCompletedList.Count)
+                while (i < actionsCompletedList.Count && flag == true)
                 {
                     if (actionsCompletedList[i].GetName() == o.GetName())
                     {
