@@ -229,7 +229,7 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
-                    beenScored = checkBeenScored(o);
+                    beenScored = checkBeenScoredA(o);
                     //If all above checks passed determine distance
 
                     if ((canDoAcc == true &&
@@ -320,7 +320,7 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
-                    beenScored = checkBeenScored(o);
+                    beenScored = checkBeenScoredB(o);
                     //If all above checks passed determine distance
 
                     if ((canDoAcc == true &&
