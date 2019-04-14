@@ -349,7 +349,7 @@ namespace vexGameSimulation
                 else
                 {
                     //Add the optimal outcome to the list
-                    actionsCompletedListA.Add(closeO);
+                    actionsCompletedListB.Add(closeO);
                     currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
                     closeO.beenScored = true;
                     totalScore = totalScore + closeO.GetPointVal();
@@ -358,10 +358,10 @@ namespace vexGameSimulation
             //display list of best moves
             int i = 0;
             string bestAcString = "";
-            MessageBox.Show("Your Robot Can Do " + actionsCompletedListA.Count.ToString() + " Moves On the A side");
-            while (i < actionsCompletedListA.Count)
+            MessageBox.Show("Your Robot Can Do " + actionsCompletedListB.Count.ToString() + " Moves On the B side");
+            while (i < actionsCompletedListB.Count)
             {
-                bestAcString = bestAcString + ", " + actionsCompletedListA[i].GetName();
+                bestAcString = bestAcString + ", " + actionsCompletedListB[i].GetName();
                 i++;
             }
             MessageBox.Show(bestAcString);
