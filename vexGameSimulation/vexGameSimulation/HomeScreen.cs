@@ -192,12 +192,16 @@ namespace vexGameSimulation
             //A SIDE SIM
 
             //Assigning Variables 
-            //Creating a new instance of the turning point game 
-            turningPoint oturningPoint = new turningPoint();
+            //Creating a new instance of the selected game to instanciate 
+            dynamic GameO;
+
+            var gameObjType = Type.GetType(gameScreen.gameToInstanciate);
+
+            GameO = Activator.CreateInstance(gameObjType);
 
             //Variables for the robot position
-            float robotPosX = oturningPoint.robotXPosA;
-            float robotPosY = oturningPoint.robotYPosA;
+            float robotPosX = GameO.robotXPosA;
+            float robotPosY = GameO.robotYPosA;
             //variables for the current time passed in the game 
             float currentTime = 0;
 
@@ -217,7 +221,7 @@ namespace vexGameSimulation
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
-                foreach (GameObject o in oturningPoint.gameObjects)
+                foreach (GameObject o in GameO.gameObjects)
                 {
 
                     float objXLoc = o.GetXlocation();
@@ -283,12 +287,14 @@ namespace vexGameSimulation
             //B SIDE SIM
 
             //Assigning Variables 
-            //Creating a new instance of the turning point game 
-            turningPoint oturningPoint = new turningPoint();
+            //Creating a new instance of the selected game to instanciate 
+            var gameObjType = Type.GetType(gameScreen.gameToInstanciate);
+
+            dynamic GameO = Activator.CreateInstance(gameObjType);
 
             //Variables for the robot position
-            float robotPosX = oturningPoint.robotXPosB;
-            float robotPosY = oturningPoint.robotYPosB;
+            float robotPosX = GameO.robotXPosB;
+            float robotPosY = GameO.robotYPosB;
             //variables for the current time passed in the game 
             float currentTime = 0;
 
@@ -308,7 +314,7 @@ namespace vexGameSimulation
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
-                foreach (GameObject o in oturningPoint.gameObjects)
+                foreach (GameObject o in GameO.gameObjects)
                 {
 
                     float objXLoc = o.GetXlocation();

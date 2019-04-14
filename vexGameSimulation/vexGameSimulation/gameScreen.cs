@@ -12,6 +12,8 @@ namespace vexGameSimulation
 {
     public partial class gameScreen : Form
     {
+        public static string gameToInstanciate;
+
         public gameScreen()
         {
             InitializeComponent();
@@ -34,9 +36,27 @@ namespace vexGameSimulation
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            //https://jeremylindsayni.wordpress.com/2019/02/11/instantiating-a-c-object-from-a-string-using-activator-createinstance-in-net/
+            gameToInstanciate = "vexGameSimulation." + FileReferenceTxt.Text;
+
             HomeScreen temp = new HomeScreen();
             temp.Show();
             this.Hide();
+        }
+
+        private void saveAsNewBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveChangesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
