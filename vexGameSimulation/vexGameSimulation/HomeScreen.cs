@@ -123,7 +123,34 @@ namespace vexGameSimulation
             }
             return true; //This needs to be tested and may need to be changed.
         }
-        bool checkBeenScored(GameObject o)
+
+        bool checkBeenScoredA(GameObject o)
+        {
+            int i = 0;
+            bool flag = true;
+            if (actionsCompletedListA.Count == 0)
+            {
+                flag = true;
+            }
+            else
+            {
+                while (i < actionsCompletedListA.Count && flag == true)
+                {
+                    if (actionsCompletedListA[i].GetName() == o.GetName())
+                    {
+                        flag = false;
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+                    i++;
+                }
+            }
+            return flag;
+        }
+
+        bool checkBeenScoredB(GameObject o)
         {
             int i = 0;
             bool flag = true;
