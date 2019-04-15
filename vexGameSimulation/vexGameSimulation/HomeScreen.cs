@@ -19,7 +19,7 @@ namespace vexGameSimulation
 
         private void HomeScreen_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -123,7 +123,34 @@ namespace vexGameSimulation
             }
             return true; //This needs to be tested and may need to be changed.
         }
-        bool checkBeenScored(GameObject o)
+
+        bool checkBeenScoredA(GameObject o)
+        {
+            int i = 0;
+            bool flag = true;
+            if (actionsCompletedListA.Count == 0)
+            {
+                flag = true;
+            }
+            else
+            {
+                while (i < actionsCompletedListA.Count && flag == true)
+                {
+                    if (actionsCompletedListA[i].GetName() == o.GetName())
+                    {
+                        flag = false;
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+                    i++;
+                }
+            }
+            return flag;
+        }
+
+        bool checkBeenScoredB(GameObject o)
         {
             int i = 0;
             bool flag = true;
@@ -165,12 +192,15 @@ namespace vexGameSimulation
             //A SIDE SIM
 
             //Assigning Variables 
-            //Creating a new instance of the turning point game 
-            turningPoint oturningPoint = new turningPoint();
+            //Creating a new instance of the selected game to instanciate
+
+            var gameObjType = Type.GetType(gameScreen.gameToInstanciate);
+
+            dynamic GameO = Activator.CreateInstance(gameObjType);
 
             //Variables for the robot position
-            float robotPosX = oturningPoint.robotXPosA;
-            float robotPosY = oturningPoint.robotYPosA;
+            float robotPosX = GameO.robotXPosA;
+            float robotPosY = GameO.robotYPosA;
             //variables for the current time passed in the game 
             float currentTime = 0;
 
@@ -190,7 +220,7 @@ namespace vexGameSimulation
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
-                foreach (GameObject o in oturningPoint.gameObjects)
+                foreach (GameObject o in GameO.gameObjects)
                 {
 
                     float objXLoc = o.GetXlocation();
@@ -202,7 +232,7 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
-                    beenScored = checkBeenScored(o);
+                    beenScored = checkBeenScoredA(o);
                     //If all above checks passed determine distance
 
                     if ((canDoAcc == true &&
@@ -256,12 +286,14 @@ namespace vexGameSimulation
             //B SIDE SIM
 
             //Assigning Variables 
-            //Creating a new instance of the turning point game 
-            turningPoint oturningPoint = new turningPoint();
+            //Creating a new instance of the selected game to instanciate 
+            var gameObjType = Type.GetType(gameScreen.gameToInstanciate);
+
+            dynamic GameO = Activator.CreateInstance(gameObjType);
 
             //Variables for the robot position
-            float robotPosX = oturningPoint.robotXPosB;
-            float robotPosY = oturningPoint.robotYPosB;
+            float robotPosX = GameO.robotXPosB;
+            float robotPosY = GameO.robotYPosB;
             //variables for the current time passed in the game 
             float currentTime = 0;
 
@@ -281,7 +313,7 @@ namespace vexGameSimulation
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
-                foreach (GameObject o in oturningPoint.gameObjects)
+                foreach (GameObject o in GameO.gameObjects)
                 {
 
                     float objXLoc = o.GetXlocation();
@@ -293,7 +325,7 @@ namespace vexGameSimulation
                     prevAccNeeded = checkPANTScore(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
-                    beenScored = checkBeenScored(o);
+                    beenScored = checkBeenScoredB(o);
                     //If all above checks passed determine distance
 
                     if ((canDoAcc == true &&
@@ -322,7 +354,7 @@ namespace vexGameSimulation
                 else
                 {
                     //Add the optimal outcome to the list
-                    actionsCompletedListA.Add(closeO);
+                    actionsCompletedListB.Add(closeO);
                     currentTime = currentTime + (getTimeForAcc(closeO) + (float.Parse(pythag(closeO.GetXlocation(), closeO.GetYlocation(), robotPosX, robotPosY).ToString()) * tilePerSecondSpeed));
                     closeO.beenScored = true;
                     totalScore = totalScore + closeO.GetPointVal();
@@ -331,10 +363,10 @@ namespace vexGameSimulation
             //display list of best moves
             int i = 0;
             string bestAcString = "";
-            MessageBox.Show("Your Robot Can Do " + actionsCompletedListA.Count.ToString() + " Moves On the A side");
-            while (i < actionsCompletedListA.Count)
+            MessageBox.Show("Your Robot Can Do " + actionsCompletedListB.Count.ToString() + " Moves On the B side");
+            while (i < actionsCompletedListB.Count)
             {
-                bestAcString = bestAcString + ", " + actionsCompletedListA[i].GetName();
+                bestAcString = bestAcString + ", " + actionsCompletedListB[i].GetName();
                 i++;
             }
             MessageBox.Show(bestAcString);

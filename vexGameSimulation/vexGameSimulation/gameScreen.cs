@@ -12,6 +12,8 @@ namespace vexGameSimulation
 {
     public partial class gameScreen : Form
     {
+        public static string gameToInstanciate;
+
         public gameScreen()
         {
             InitializeComponent();
@@ -34,9 +36,26 @@ namespace vexGameSimulation
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
+            gameToInstanciate = "vexGameSimulation." + FileReferenceTxt.Text+", vexGameSimulation";
+
             HomeScreen temp = new HomeScreen();
             temp.Show();
             this.Hide();
+        }
+
+        private void saveAsNewBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(typeof(turningPoint).AssemblyQualifiedName);
+        }
+
+        private void saveChangesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
