@@ -98,22 +98,6 @@ namespace vexGameSimulation
             gameList.Enabled = true; //Enables the gamelist in case it was disabled
             command.ExecuteNonQuery(); //Executes the command
             connection.Close(); //Closes the connection
-
-            //Loads turningPoint Actions
-            int rowIndex = 0; //Sets the index to be used
-
-            while (rowIndex < turningPoint.actionlist.Length) //Steps through for all the values inside the turning point game file
-            {
-                int rowId = dataGridView1.Rows.Add();//Gives the rowId a new row to point to
-
-                DataGridViewRow row = dataGridView1.Rows[rowId];//creates the row object for a DataGridViewRow and gives it to dataGridView1.Rows
-
-                row.Cells[0].Value = turningPoint.actionlist[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
-
-                rowIndex++; //Iterates to the next index
-
-            }
-            
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -138,8 +122,6 @@ namespace vexGameSimulation
                 row = dataGridView1.Rows[i];
                 
                 requiredAccList.Add(row.Cells[0].Value.ToString());
-
-                Console.WriteLine(row.Cells[1].Value.ToString());
                 if (row.Cells[1].Value.ToString() == "True" )
                 {
                     bool boolToAdd = true;
@@ -302,6 +284,7 @@ namespace vexGameSimulation
         }
 
         string targetGame = "Turning Point";
+
         private void gameList_SelectedIndexChanged(object sender, EventArgs e)
         {
             targetGame = gameList.GetItemText(this.gameList.SelectedItem);
@@ -340,7 +323,6 @@ namespace vexGameSimulation
                     }
                     else
                     {
-
                     }
                 }
                 dataGridView1.Refresh();
@@ -348,13 +330,9 @@ namespace vexGameSimulation
                 while (rowIndex < acList.Count) //Steps through for all the values inside the turning point game file
                 {
                     int rowId = dataGridView1.Rows.Add();//Gives the rowId a new row to point to
-
                     DataGridViewRow row = dataGridView1.Rows[rowId];//creates the row object for a DataGridViewRow and gives it to dataGridView1.Rows
-
                     row.Cells[0].Value = turningPoint.actionlist[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
-
                     rowIndex++; //Iterates to the next index
-
                 }
             }
             connection.Close();
