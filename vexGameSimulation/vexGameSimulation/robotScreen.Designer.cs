@@ -120,6 +120,7 @@
             this.gameList.Name = "gameList";
             this.gameList.Size = new System.Drawing.Size(143, 21);
             this.gameList.TabIndex = 8;
+            this.gameList.SelectedIndexChanged += new System.EventHandler(this.gameList_SelectedIndexChanged);
             // 
             // RobotList
             // 

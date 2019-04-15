@@ -35,6 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.robotTxt = new System.Windows.Forms.Label();
             this.runBtn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.timeTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // loadEditRobotBtn
@@ -94,7 +96,7 @@
             // 
             // runBtn
             // 
-            this.runBtn.Location = new System.Drawing.Point(143, 206);
+            this.runBtn.Location = new System.Drawing.Point(255, 206);
             this.runBtn.Name = "runBtn";
             this.runBtn.Size = new System.Drawing.Size(157, 131);
             this.runBtn.TabIndex = 6;
@@ -102,11 +104,30 @@
             this.runBtn.UseVisualStyleBackColor = true;
             this.runBtn.Click += new System.EventHandler(this.runBtn_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 262);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(183, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Amount of Simulation Time (Seconds)";
+            // 
+            // timeTxt
+            // 
+            this.timeTxt.Location = new System.Drawing.Point(198, 259);
+            this.timeTxt.Name = "timeTxt";
+            this.timeTxt.Size = new System.Drawing.Size(51, 20);
+            this.timeTxt.TabIndex = 8;
+            this.timeTxt.Text = "105";
+            // 
             // HomeScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 349);
+            this.Controls.Add(this.timeTxt);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.runBtn);
             this.Controls.Add(this.robotTxt);
             this.Controls.Add(this.label2);
@@ -131,6 +152,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label robotTxt;
         private System.Windows.Forms.Button runBtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox timeTxt;
     }
 }
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Reflection;
 
 
 namespace vexGameSimulation
@@ -35,7 +36,7 @@ namespace vexGameSimulation
             DataTable dt = new DataTable();
 
             this.robottableTableAdapter.Fill(this.vexgamesimDataSet.robottable); //Fills RobotTable with the data from the robottable
-            Query = "SELECT gameName, gameID from gametable"; //Runs the query to select the gameName and gameID from the gametable 
+            string Query = "SELECT gameName, gameID from gametable"; //Runs the query to select the gameName and gameID from the gametable 
             MySqlConnection connection = new MySqlConnection(conString); //sets the string to establish the connection to the database 
             MySqlCommand command = new MySqlCommand(Query, connection); //Creates a command using the query and the constring to be run later 
             MySqlDataAdapter da = new MySqlDataAdapter(Query, conString); //creates a data adapter for the data to be thrown into the data table
@@ -66,19 +67,40 @@ namespace vexGameSimulation
             command.ExecuteNonQuery(); //Executes the command
             connection.Close(); //Closes the connection
 
-            //Load the Values of the default game VexTurningPoint into the game actions tab in the page
-
             Query = "SELECT MAX(robotID) FROM robottable"; //Selects highest robotID from robottable
             MySqlConnection connection3 = new MySqlConnection(conString); //SQL things that I have commented thousands of times before
             MySqlCommand command3 = new MySqlCommand(Query, connection3);
             connection3.Open();
             MySqlDataReader reader = command3.ExecuteReader();
             reader.Read();
-            maxRobID = Int32.Parse(reader["MAX(robotID)"].ToString()) + 1; //Sets maxRobID to be the value of the object stringified and then turned into an int because
-            connection3.Close();                                           //Objects don't like being turned into int values
-            
+            if (reader["MAX(robotID)"].ToString() == "")
+            {
+                maxRobID = 1;
+            }
+            else
+            {
+                maxRobID = Int32.Parse(reader["MAX(robotID)"].ToString()) + 1; //Sets maxRobID to be the value of the object stringified and then turned into an int because
+            }
+            connection3.Close();
 
-        int rowIndex = 0; //Sets the index to be used
+            //Load game values into the gameList
+             dt = new DataTable();
+
+            Query = "SELECT gameName, gameID from gametable"; //Runs the query to select the gameName and gameID from the gametable 
+            connection = new MySqlConnection(conString); //sets the string to establish the connection to the database 
+            command = new MySqlCommand(Query, connection); //Creates a command using the query and the constring to be run later 
+            da = new MySqlDataAdapter(Query, conString); //creates a data adapter for the data to be thrown into the data table
+            da.Fill(dt); //fills the datatable with the data
+            connection.Open(); //opens the connection
+            gameList.DataSource = dt; //sets the datasource for the gamelist to be the datatable
+            gameList.DisplayMember = "gameName"; //sets the display member property to be equal to the gamename property of the gamelist.DisplayMember
+            gameList.ValueMember = "gameID"; //Sets the value value member property to be equal to the gameID property of the gamelist.Valuemember 
+            gameList.Enabled = true; //Enables the gamelist in case it was disabled
+            command.ExecuteNonQuery(); //Executes the command
+            connection.Close(); //Closes the connection
+
+            //Loads turningPoint Actions
+            int rowIndex = 0; //Sets the index to be used
 
             while (rowIndex < turningPoint.actionlist.Length) //Steps through for all the values inside the turning point game file
             {
@@ -141,9 +163,10 @@ namespace vexGameSimulation
             {
                 //Saves Data For RobotTable
                 float robotSpeed = float.Parse(robotSpeedTxt.Text, CultureInfo.InvariantCulture.NumberFormat); //convert the robotSpeedTxt input into a floating point number
-                Query = "INSERT INTO vexgamesim.robottable(robotName,robotSpeed,gameID) VALUES(@robotName, @robotSpeed, @gameID);"; //Creates the query for saving the parameters @robotName, @robotSpeed, @gameID to the columns robotName,robotSpeed,gameID
+                Query = "INSERT INTO vexgamesim.robottable(robotID, robotName,robotSpeed,gameID) VALUES(@robotID, @robotName, @robotSpeed, @gameID);"; //Creates the query for saving the parameters @robotName, @robotSpeed, @gameID to the columns robotName,robotSpeed,gameID
                 MySqlConnection connection = new MySqlConnection(conString); //sets the string to establish the connection to the database  
                 MySqlCommand command = new MySqlCommand(Query, connection); //creates the command with the 
+                command.Parameters.AddWithValue("@robotID", maxRobID);
                 command.Parameters.AddWithValue("@robotName", robotNameTxt.Text); //Passes a parameter to the query @robotname for the values of robotNameTxt.Text
                 command.Parameters.AddWithValue("@robotSpeed", robotSpeed); //Passes the robotSpeed into the parameter for @robotSpeed
                 command.Parameters.AddWithValue("@gameID", gameList.SelectedValue); //Passes the gameList.SelectedValue into the parameter for @gameID
@@ -151,7 +174,7 @@ namespace vexGameSimulation
                 connection.Open(); //Opens the connection
                 reader = command.ExecuteReader(); //Executes the command using the reader
                 connection.Close(); //Closes the connection
-
+                
                 //Saves Data For RobotActionTable
                 int index = 0; //sets the index
                 
@@ -171,7 +194,7 @@ namespace vexGameSimulation
                     connection.Close(); //closes the connection
                     index++; //adds the index 
                 }
-                maxRobID = maxRobID + 1;
+                maxRobID++;
 
 
                 MessageBox.Show("Data has been Saved!"); //Shows a messagebox detailing if the data has been saved.
@@ -266,22 +289,79 @@ namespace vexGameSimulation
                     connection = new MySqlConnection(conString);    
                     MySqlCommand commmand = new MySqlCommand(Query, connection2);
                     connection2.Open();
-                    MySqlDataReader reader2 = commmand.ExecuteReader();
-                    reader2.Read();
-                    row.Cells[1].Value = reader2["canPerformAction"]; //Sets the value of the current row.Cell[1] to the value of can perform action
-                    row.Cells[2].Value = reader2["probOfSuccess"].ToString(); //Sets the value of the current row.Cell[2] to the value of the probOfSuccess passed as a string
-                    row.Cells[3].Value = reader2["timeToComplete"].ToString(); //Sets the value of the current row.Cells[3] to the value of the timeToComplete passed as a string
+                    reader = commmand.ExecuteReader();
+                    reader.Read();
+                    row.Cells[1].Value = reader["canPerformAction"]; //Sets the value of the current row.Cell[1] to the value of can perform action
+                    row.Cells[2].Value = reader["probOfSuccess"].ToString(); //Sets the value of the current row.Cell[2] to the value of the probOfSuccess passed as a string
+                    row.Cells[3].Value = reader["timeToComplete"].ToString(); //Sets the value of the current row.Cells[3] to the value of the timeToComplete passed as a string
                     connection2.Close();
                     
                     index++; //Increses the index value
                 }
 
-            }
-            /*catch
-            {
-                MessageBox.Show("Failed to load"); //Shows a messagebox with the failed to load error
-            }*/
         }
+
+        string targetGame = "Turning Point";
+        private void gameList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            targetGame = gameList.GetItemText(this.gameList.SelectedItem);
+            Console.WriteLine(targetGame);
+
+            Query = "SELECT * FROM gametable WHERE gameName = '" + targetGame + "'";
+            MySqlConnection connection = new MySqlConnection(conString);
+            MySqlCommand commmand = new MySqlCommand(Query, connection);
+            MySqlDataReader reader;
+            connection.Open();
+            reader = commmand.ExecuteReader();
+            reader.Read();
+            Console.WriteLine(reader.HasRows);
+            if (reader.HasRows)
+            {
+                dataGridView1.Rows.Clear();
+                dataGridView1.Refresh();
+
+                int rowIndex = 0;
+
+                string gameToInstanciate = "vexGameSimulation." + reader["gameFileReference"].ToString() + ", vexGameSimulation";
+
+
+                var gameObjType = Type.GetType(gameToInstanciate);
+
+                dynamic GameO = Activator.CreateInstance(gameObjType);
+
+                List<string> acList = new List<string>();
+
+                foreach (GameObject o in GameO.gameObjects)
+                {
+                    bool flag = acList.Contains(o.GetRequiredAction());
+                    if (!flag)
+                    {
+                        acList.Add(o.GetRequiredAction());
+                    }
+                    else
+                    {
+
+                    }
+                }
+                dataGridView1.Refresh();
+
+                while (rowIndex < acList.Count) //Steps through for all the values inside the turning point game file
+                {
+                    int rowId = dataGridView1.Rows.Add();//Gives the rowId a new row to point to
+
+                    DataGridViewRow row = dataGridView1.Rows[rowId];//creates the row object for a DataGridViewRow and gives it to dataGridView1.Rows
+
+                    row.Cells[0].Value = turningPoint.actionlist[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
+
+                    rowIndex++; //Iterates to the next index
+
+                }
+            }
+            connection.Close();
+        }
+        
+
     }
+}
     
-//}
+

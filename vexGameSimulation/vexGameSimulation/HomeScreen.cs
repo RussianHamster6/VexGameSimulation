@@ -216,7 +216,7 @@ namespace vexGameSimulation
             int totalScore = 0;
 
 
-            while (currentTime < 105)
+            while (currentTime < float.Parse(timeTxt.Text))
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");
@@ -309,7 +309,7 @@ namespace vexGameSimulation
             int totalScore = 0;
 
 
-            while (currentTime < 105)
+            while (currentTime < float.Parse(timeTxt.Text))
             {
                 //Creates a closeO placeholder with a distance at an extremem so it will be replaced by the first valid action the robot can take. 
                 GameObject closeO = new GameObject("PlaceHolder", 10f, 10f, 0, false, "PlaceHolder", "placeholder");

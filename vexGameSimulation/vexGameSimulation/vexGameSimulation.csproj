@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="FakeGame.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="gameScreen.cs">
       <SubType>Form</SubType>
