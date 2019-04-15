@@ -33,7 +33,7 @@
             this.FileReferenceTxt = new System.Windows.Forms.TextBox();
             this.saveAsNewBtn = new System.Windows.Forms.Button();
             this.saveChangesBtn = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.gameList = new System.Windows.Forms.ComboBox();
             this.loadBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
             this.gameNameTxt = new System.Windows.Forms.TextBox();
@@ -85,13 +85,13 @@
             this.saveChangesBtn.UseVisualStyleBackColor = true;
             this.saveChangesBtn.Click += new System.EventHandler(this.saveChangesBtn_Click);
             // 
-            // comboBox1
+            // gameList
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(290, 54);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 16;
+            this.gameList.FormattingEnabled = true;
+            this.gameList.Location = new System.Drawing.Point(290, 54);
+            this.gameList.Name = "gameList";
+            this.gameList.Size = new System.Drawing.Size(121, 21);
+            this.gameList.TabIndex = 16;
             // 
             // loadBtn
             // 
@@ -128,7 +128,7 @@
             this.Controls.Add(this.gameNameTxt);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.loadBtn);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.gameList);
             this.Controls.Add(this.saveChangesBtn);
             this.Controls.Add(this.saveAsNewBtn);
             this.Controls.Add(this.FileReferenceTxt);
@@ -148,7 +148,7 @@
         private System.Windows.Forms.TextBox FileReferenceTxt;
         private System.Windows.Forms.Button saveAsNewBtn;
         private System.Windows.Forms.Button saveChangesBtn;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox gameList;
         private System.Windows.Forms.Button loadBtn;
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.TextBox gameNameTxt;

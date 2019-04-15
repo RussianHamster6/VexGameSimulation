@@ -19,7 +19,7 @@ namespace vexGameSimulation
 
         private void HomeScreen_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -192,12 +192,11 @@ namespace vexGameSimulation
             //A SIDE SIM
 
             //Assigning Variables 
-            //Creating a new instance of the selected game to instanciate 
-            dynamic GameO;
+            //Creating a new instance of the selected game to instanciate
 
             var gameObjType = Type.GetType(gameScreen.gameToInstanciate);
 
-            GameO = Activator.CreateInstance(gameObjType);
+            dynamic GameO = Activator.CreateInstance(gameObjType);
 
             //Variables for the robot position
             float robotPosX = GameO.robotXPosA;
