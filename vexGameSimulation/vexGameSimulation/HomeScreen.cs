@@ -75,7 +75,27 @@ namespace vexGameSimulation
             return result;
         }
 
-        bool checkPANTScore(GameObject  o)
+        bool checkPANTScoreA(GameObject  o)
+        {
+            if (o.GetPANTScore().Length > 0)
+            {
+                foreach (GameObject a in actionsCompletedListA)
+                {
+                    if (a.GetRequiredAction() == o.GetPANTScore())
+                    {
+                        a.requiredAction = a.GetRequiredAction() + "!";
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        bool checkPANTScoreB(GameObject o)
         {
             if (o.GetPANTScore().Length > 0)
             {
@@ -94,6 +114,7 @@ namespace vexGameSimulation
                 return true;
             }
         }
+
         bool checkActionLimit(GameObject o)
         {
             int count = 0;
@@ -229,7 +250,7 @@ namespace vexGameSimulation
                     //Checks if the robot can do the action needed for the 3.281
                     canDoAcc = checkCanDoacc(o);
                     //Checks if object needs a previous action to score the object
-                    prevAccNeeded = checkPANTScore(o);
+                    prevAccNeeded = checkPANTScoreA(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
                     beenScored = checkBeenScoredA(o);
@@ -276,6 +297,7 @@ namespace vexGameSimulation
                 bestAcString = bestAcString + ", " + actionsCompletedListA[i].GetName();
                 i++;
             }
+            MessageBox.Show("Your B Score Was " + totalScore.ToString());
             MessageBox.Show(bestAcString);
         }
 
@@ -322,7 +344,7 @@ namespace vexGameSimulation
                     //Checks if the robot can do the action needed for the 3.281
                     canDoAcc = checkCanDoacc(o);
                     //Checks if object needs a previous action to score the object
-                    prevAccNeeded = checkPANTScore(o);
+                    prevAccNeeded = checkPANTScoreB(o);
                     //Checks if there is too many of the limited action on the robot
                     limitedAction = checkActionLimit(o);
                     beenScored = checkBeenScoredB(o);
@@ -369,6 +391,7 @@ namespace vexGameSimulation
                 bestAcString = bestAcString + ", " + actionsCompletedListB[i].GetName();
                 i++;
             }
+            MessageBox.Show("Your B Score Was " + totalScore.ToString());
             MessageBox.Show(bestAcString);
         }
 

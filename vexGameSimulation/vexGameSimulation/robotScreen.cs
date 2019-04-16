@@ -327,11 +327,11 @@ namespace vexGameSimulation
                 }
                 dataGridView1.Refresh();
 
-                while (rowIndex < acList.Count) //Steps through for all the values inside the turning point game file
+                while (rowIndex < acList.Count) //Steps through for all the values inside game file
                 {
                     int rowId = dataGridView1.Rows.Add();//Gives the rowId a new row to point to
                     DataGridViewRow row = dataGridView1.Rows[rowId];//creates the row object for a DataGridViewRow and gives it to dataGridView1.Rows
-                    row.Cells[0].Value = turningPoint.actionlist[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
+                    row.Cells[0].Value = acList[rowIndex]; //sets the first column in the data grid view to be equal to the index of the actionlist in the turning point file
                     rowIndex++; //Iterates to the next index
                 }
             }
